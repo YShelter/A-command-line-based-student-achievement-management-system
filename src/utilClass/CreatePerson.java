@@ -11,7 +11,7 @@ import static utilClass.Utils.*;
 public class CreatePerson {
     static Random random = new Random();
     public static void createStudents(ArrayList<Student> students) {
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 150; i++) {
             String gender =  getGender();
             String name = getName(gender);
 
@@ -21,7 +21,7 @@ public class CreatePerson {
         }
     }
 
-    public static void createSTeacher(ArrayList<Teacher> teachers) {
+    public static void createTeachers(ArrayList<Teacher> teachers) {
         for (int i = 0; i < 20; i++) {
             String gender =  getGender();
             String name = getName(gender);

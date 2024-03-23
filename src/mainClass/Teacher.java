@@ -15,6 +15,14 @@ public class Teacher extends Person {
         this.id = id;
     }
 
+    @Override
+    public String toString() {
+        return  "Teacher{" +
+                super.toString() +
+                "id=" + id +
+                '}';
+    }
+
     public int getId() {
         return id;
     }

@@ -1,4 +1,8 @@
-package mainClass;
+package utilClass;
+
+import mainClass.Course;
+import mainClass.CourseScore;
+import mainClass.Student;
 
 import java.util.Map;
 

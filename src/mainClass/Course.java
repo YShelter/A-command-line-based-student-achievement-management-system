@@ -7,6 +7,10 @@ public class Course {
     private String name; // 课程名称
     private int credit; // 学分
     private ArrayList<Teacher> teachers; // 教师列表
+    private double regularScoreWeight = 0.1; // 平时成绩权重
+    private double midtermScoreWeight = 0.2; // 期中成绩权重
+    private double experimentScoreWeight = 0.3; // 实验成绩权重
+    private double finalScoreWeight = 0.4; // 期末成绩权重
 
     public Course() {
     }
@@ -15,6 +19,16 @@ public class Course {
         this.id = id;
         this.name = name;
         this.credit = credit;
+        this.teachers = new ArrayList<>();
+    }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", credit=" + credit +
+                '}';
     }
 
     public String getId() {
@@ -47,5 +61,37 @@ public class Course {
 
     public void setTeachers(ArrayList<Teacher> teachers) {
         this.teachers = teachers;
+    }
+
+    public double getRegularScoreWeight() {
+        return regularScoreWeight;
+    }
+
+    public void setRegularScoreWeight(double regularScoreWeight) {
+        this.regularScoreWeight = regularScoreWeight;
+    }
+
+    public double getMidtermScoreWeight() {
+        return midtermScoreWeight;
+    }
+
+    public void setMidtermScoreWeight(double midtermScoreWeight) {
+        this.midtermScoreWeight = midtermScoreWeight;
+    }
+
+    public double getExperimentScoreWeight() {
+        return experimentScoreWeight;
+    }
+
+    public void setExperimentScoreWeight(double experimentScoreWeight) {
+        this.experimentScoreWeight = experimentScoreWeight;
+    }
+
+    public double getFinalScoreWeight() {
+        return finalScoreWeight;
+    }
+
+    public void setFinalScoreWeight(double finalScoreWeight) {
+        this.finalScoreWeight = finalScoreWeight;
     }
 }

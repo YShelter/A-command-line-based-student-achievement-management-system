@@ -19,6 +19,7 @@ public class Utils {
     public static final String ANSI_BOLD = "\u001B[1m"; // 粗体
     public static final String ANSI_UNDERLINE = "\u001B[4m"; // 下划线
     public static final String ANSI_BACKGROUND = "\u001B[40m"; // 背景色
+
     public static final String LAST_NAME =
             "赵 钱 孙 李 周 吴 郑 王 " +
             "冯 陈 褚 卫 蒋 沈 韩 杨 " +
@@ -57,20 +58,12 @@ public class Utils {
             "索 咸 籍 赖 卓 蔺 屠 蒙 " +
             "池 乔 阴 郁 胥 能 苍 双 " +
             "闻 莘 党 翟 谭 贡 劳 逄 " +
-            "姬 申 扶 堵 冉 宰 郦 雍 " +
-            "却 璩 桑 桂 濮 牛 寿 通 " +
-            "边 扈 燕 冀 郏 浦 尚 农 " +
             "温 别 庄 晏 柴 瞿 阎 充 " +
             "慕 连 茹 习 宦 艾 鱼 容 " +
             "向 古 易 慎 戈 廖 庾 终 " +
             "暨 居 衡 步 都 耿 满 弘 " +
             "匡 国 文 寇 广 禄 阙 东 " +
-            "欧 殳 沃 利 蔚 越 夔 隆 " +
-            "师 巩 厍 聂 晁 勾 敖 融 " +
-            "冷 訾 辛 阚 那 简 饶 空 " +
             "曾 毋 沙 乜 养 鞠 须 丰 " +
-            "巢 关 蒯 相 查 后 荆 红 " +
-            "游 竺 权 逯 盖 益 桓 公 " +
             "万俟 司马 上官 欧阳 " +
             "夏侯 诸葛 闻人 东方 " +
             "赫连 皇甫 尉迟 公羊 " +
@@ -164,8 +157,10 @@ public class Utils {
 
     public static final int FIRST_NAME_FEMALE_ARRAY_LENGTH = FIRST_NAME_FEMALE_ARRAY.length;
 
+/*
     public static final String[] COURSE_NAME = {"高等数学", "线性代数", "概率与数理统计", "离散数学", "计算机科学导论", "程序设计", "汇编语言",
                                                 "计算机组成原理", "算法与数据结构", "操作系统原理", "软件工程", "计算机网络与通信", "编译原理", "数据库系统原理"};
+*/
 
     public static final Course[] COURSES = { // 记录课程信息
             new Course("MATH101", "高等数学", 4),
@@ -183,6 +178,9 @@ public class Utils {
             new Course("CS502", "编译原理", 3),
             new Course("CS601", "数据库系统原理", 4)
     };
+
+    public static final String[] SEMESTERS = {"2019-2020-1", "2019-2020-2", "2020-2021-1", "2020-2021-2",
+            "2021-2022-1", "2021-2022-2", "2022-2023-1", "2022-2023-2", "2023-2024-1", "2023-2024-2"};
 
 
 
