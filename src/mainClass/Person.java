@@ -18,8 +18,8 @@ public class Person {
 
     @Override
     public String toString() {
-        return "name='" + name + '\'' +
-                ", gender='" + gender + '\'';
+        return "姓名：" + name + '\t' +
+                ", 性别：" + gender + '\t';
     }
 
     public String getName() {

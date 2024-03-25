@@ -9,8 +9,8 @@ import static utilClass.Utils.*;
 public class TeachingClassManager {
     static Random random = new Random();
 
-    // 在课程中添加教学老师
-    public static void addTeacher(ArrayList<Teacher> teachers) {
+    // 在课程中随机添加教学老师
+    public static void addTeacherForCourse(ArrayList<Teacher> teachers) {
         HashSet<Integer> randomSet = new HashSet<>();
 
         for (Course course : COURSES) {
@@ -28,8 +28,9 @@ public class TeachingClassManager {
             }
 
             randomSet.clear(); // 清空教师名单
-
         }
+
+//        System.out.println("课程详情：" + Arrays.toString(COURSES));
 
     }
 
@@ -39,6 +40,7 @@ public class TeachingClassManager {
         ClassScore cs = new ClassScore(new HashMap<>());
         HashSet<Integer> studentSet = new HashSet<>();
         HashSet<Integer> courseSet = new HashSet<>();
+        int courseID = 0;
 
 
         for (int i = 0; i < courseNum; i++) {
@@ -65,18 +67,19 @@ public class TeachingClassManager {
                     cs.getScores().put(students.get(student), new CourseScore()); // 添加学生成绩
                 }
                 String semester = SEMESTERS[random.nextInt(SEMESTERS.length)]; // 随机选择一个学年学期
-                TeachingClass tc = new TeachingClass(i, COURSES[courseIndex], COURSES[courseIndex].getTeachers().get(j), studentList, semester, cs);
+                TeachingClass tc = new TeachingClass(courseID, COURSES[courseIndex], COURSES[courseIndex].getTeachers().get(j), studentList, semester, cs);
                 teachingClasses.add(tc); // 添加教学班
+                courseID++;
             }
 
             studentSet.clear(); // 清空学生名单
 
         }
 
-/*        for (TeachingClass teachingClass : teachingClasses) {
-            System.out.println(teachingClass);
-            System.out.println("====================================");
-        }*/
+//        for (TeachingClass teachingClass : teachingClasses) {
+//            System.out.println(teachingClass);
+//            System.out.println("====================================");
+//        }
     }
 
     // 生成教学班学生成绩
@@ -116,7 +119,7 @@ public class TeachingClassManager {
     }
 
     // 为教学班单独添加学生
-    public static void addStudent(TeachingClass teachingClass, ArrayList<Student> students) {
+    public static void addStudentForClass(TeachingClass teachingClass, ArrayList<Student> students) {
         HashMap<Student, CourseScore> scores = new HashMap<>();
         for (Student student : students) {
             scores.put(student, new CourseScore());

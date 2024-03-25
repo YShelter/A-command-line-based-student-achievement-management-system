@@ -1,17 +1,14 @@
 package utilClass;
 
-import mainClass.Student;
-import mainClass.Teacher;
-import mainClass.TeachingClass;
+import mainClass.*;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class SystemInfoManager {
-    protected ArrayList<Student> students;
-    protected ArrayList<Teacher> teachers;
-    protected ArrayList<TeachingClass> teachingClasses;
+    protected static ArrayList<Student> students = new ArrayList<>(); // 记录所有学生信息
+    protected static ArrayList<Teacher> teachers = new ArrayList<>(); // 记录所有教师信息
+    protected static ArrayList<TeachingClass> teachingClasses = new ArrayList<>(); // 记录所有教学班信息
+    protected static Map<Student, Map<Course, CourseScore>> StudentScores; //学生成绩
 
-    public static void showStudentInfoManager() {
-        System.out.println("学生信息管理");
-    }
 }

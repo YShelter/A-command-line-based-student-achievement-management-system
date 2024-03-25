@@ -1,33 +1,33 @@
 package mainClass;
 
 public class Teacher extends Person {
-    int id; // 教师编号
+    String id; // 教师编号
 
     public Teacher() {
     }
 
-    public Teacher(int id) {
+    public Teacher(String id) {
         this.id = id;
     }
 
-    public Teacher(String name, String gender, int id) {
+    public Teacher(String name, String gender, String id) {
         super(name, gender);
         this.id = id;
     }
 
     @Override
     public String toString() {
-        return  "Teacher{" +
+        return  "Teacher{ " +
                 super.toString() +
-                "id=" + id +
-                '}';
+                "教师编号： " + id +
+                " }\n";
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 }

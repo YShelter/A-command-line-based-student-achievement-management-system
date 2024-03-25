@@ -25,9 +25,10 @@ public class Course {
     @Override
     public String toString() {
         return "Course{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", credit=" + credit +
+                "课程代码：" + id + '\t' +
+                ", 课程名称:" + name + '\t' +
+                ", 课程学分:" + credit + '\n' +
+                ", 教师列表" + teachers +
                 '}';
     }
 

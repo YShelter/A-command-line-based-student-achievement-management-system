@@ -1,29 +1,29 @@
 package mainClass;
 
 public class Student extends Person {
-    int id; // 学号
+    String id; // 学号
 
     public Student() {
     }
 
-    public Student(String name, String gender, int id) {
+    public Student(String name, String gender, String id) {
         super(name, gender);
         this.id = id;
     }
 
     @Override
     public String toString() {
-        return  "Student{" +
+        return  "Student{ " +
                 super.toString() +
-                "id=" + id +
-                '}';
+                ", 学号： " + id +
+                " }\n";
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 }

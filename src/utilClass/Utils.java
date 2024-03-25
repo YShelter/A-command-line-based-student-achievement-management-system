@@ -20,6 +20,10 @@ public class Utils {
     public static final String ANSI_UNDERLINE = "\u001B[4m"; // 下划线
     public static final String ANSI_BACKGROUND = "\u001B[40m"; // 背景色
 
+    public enum PERSON_TYPE {
+        STUDENT, TEACHER
+    }
+
     public static final String LAST_NAME =
             "赵 钱 孙 李 周 吴 郑 王 " +
             "冯 陈 褚 卫 蒋 沈 韩 杨 " +
