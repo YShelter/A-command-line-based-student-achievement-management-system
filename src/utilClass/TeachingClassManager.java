@@ -4,6 +4,7 @@ import mainClass.*;
 
 import java.util.*;
 
+import static utilClass.SystemInfoManager.studentScores;
 import static utilClass.Utils.*;
 
 public class TeachingClassManager {
@@ -35,7 +36,7 @@ public class TeachingClassManager {
     }
 
     // 创建教学班
-    public static void createClass(ArrayList<Student> students, ArrayList<TeachingClass> teachingClasses) {
+    public static void createRandomClass(ArrayList<Student> students, ArrayList<TeachingClass> teachingClasses) {
         int courseNum = random.nextInt(4) + 3;
         ClassScore cs = new ClassScore(new HashMap<>());
         HashSet<Integer> studentSet = new HashSet<>();
@@ -65,6 +66,11 @@ public class TeachingClassManager {
 
                     studentList.add(students.get(student)); // 添加学生
                     cs.getScores().put(students.get(student), new CourseScore()); // 添加学生成绩
+
+                    HashMap<Course, CourseScore> studentScore = new HashMap<>();
+                    studentScore.put(COURSES[courseIndex], new CourseScore());
+
+                    studentScores.put(students.get(student),studentScore); // 添加学生成绩
                 }
                 String semester = SEMESTERS[random.nextInt(SEMESTERS.length)]; // 随机选择一个学年学期
                 TeachingClass tc = new TeachingClass(courseID, COURSES[courseIndex], COURSES[courseIndex].getTeachers().get(j), studentList, semester, cs);
@@ -108,14 +114,6 @@ public class TeachingClassManager {
                 }
             }
         }
-    }
-
-    // 设置成绩占比
-    public static void setScoreWeight(Course course, double regularScoreWeight, double midtermScoreWeight, double experimentScoreWeight, double finalScoreWeight) {
-        course.setRegularScoreWeight(regularScoreWeight);
-        course.setMidtermScoreWeight(midtermScoreWeight);
-        course.setExperimentScoreWeight(experimentScoreWeight);
-        course.setFinalScoreWeight(finalScoreWeight);
     }
 
     // 为教学班单独添加学生
