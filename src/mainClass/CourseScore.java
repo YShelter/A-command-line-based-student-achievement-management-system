@@ -1,10 +1,16 @@
 package mainClass;
 
+import java.time.LocalDate;
+
 public class CourseScore { // 课程成绩
     private int regularScore; // 平时成绩
+    private LocalDate regularScoreDate; // 平时成绩录入日期
     private int midtermScore; // 期中成绩
+    private LocalDate midtermScoreDate; // 期中成绩录入日期
     private int experimentScore; // 实验成绩
+    private LocalDate experimentScoreDate; // 实验成绩录入日期
     private int finalScore; // 期末成绩
+    private LocalDate finalScoreDate; // 期末成绩录入日期
     private int totalScore; // 总成绩
 
     public CourseScore() {
@@ -61,6 +67,38 @@ public class CourseScore { // 课程成绩
 
     public void setTotalScore(int totalScore) {
         this.totalScore = totalScore;
+    }
+
+    public LocalDate getRegularScoreDate() {
+        return regularScoreDate;
+    }
+
+    public void setRegularScoreDate(LocalDate regularScoreDate) {
+        this.regularScoreDate = regularScoreDate;
+    }
+
+    public LocalDate getMidtermScoreDate() {
+        return midtermScoreDate;
+    }
+
+    public void setMidtermScoreDate(LocalDate midtermScoreDate) {
+        this.midtermScoreDate = midtermScoreDate;
+    }
+
+    public LocalDate getExperimentScoreDate() {
+        return experimentScoreDate;
+    }
+
+    public void setExperimentScoreDate(LocalDate experimentScoreDate) {
+        this.experimentScoreDate = experimentScoreDate;
+    }
+
+    public LocalDate getFinalScoreDate() {
+        return finalScoreDate;
+    }
+
+    public void setFinalScoreDate(LocalDate finalScoreDate) {
+        this.finalScoreDate = finalScoreDate;
     }
 
     @Override

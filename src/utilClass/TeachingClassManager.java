@@ -2,10 +2,15 @@ package utilClass;
 
 import mainClass.*;
 
-import java.util.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Random;
 
-import static utilClass.SystemInfoManager.studentScores;
-import static utilClass.Utils.*;
+import static utilClass.SystemInfoManager.*;
+import static utilClass.Utils.COURSES;
+import static utilClass.Utils.SEMESTERS;
 
 public class TeachingClassManager {
     static Random random = new Random();
@@ -38,7 +43,7 @@ public class TeachingClassManager {
     // 创建教学班
     public static void createRandomClass(ArrayList<Student> students, ArrayList<TeachingClass> teachingClasses) {
         int courseNum = random.nextInt(4) + 3;
-        ClassScore cs = new ClassScore(new HashMap<>());
+        ClassScore classScore = new ClassScore(new HashMap<>());
         HashSet<Integer> studentSet = new HashSet<>();
         HashSet<Integer> courseSet = new HashSet<>();
         int courseID = 0;
@@ -52,28 +57,46 @@ public class TeachingClassManager {
             }
             courseSet.add(courseIndex);
 
+            courses.add(COURSES[courseIndex]);// 向开课列表中添加课程
+
             for (int j = 0; j < COURSES[courseIndex].getTeachers().size(); j++) { // 遍历课程中的教师
                 int studentNum = random.nextInt(11) + 20; // 随机选择一个班级人数
                 ArrayList<Student> studentList = new ArrayList<>();
 
                 for (int k = 0; k < studentNum; k++) {
-                    int student = random.nextInt(students.size()); // 随机选择一个学生
+                    int student; // 随机选择一个学生
 
-                    while (studentSet.contains(student)) { // 对学生名单进行去重
+                    while (true) { // 对学生名单进行去重
                         student = random.nextInt(students.size());
+
+                        if (studentSet.contains(student)) {
+                            continue;
+                        }
+
+                        if (studentScores.get(students.get(student)).containsKey(COURSES[courseIndex])) { // 判断学生是否选择了同一门课程的不同班级
+                            continue;
+                        }
+
+                        studentSet.add(student);
+                        break;
                     }
-                    studentSet.add(student);
 
-                    studentList.add(students.get(student)); // 添加学生
-                    cs.getScores().put(students.get(student), new CourseScore()); // 添加学生成绩
+                    Student currentStudent = students.get(student);
 
-                    HashMap<Course, CourseScore> studentScore = new HashMap<>();
-                    studentScore.put(COURSES[courseIndex], new CourseScore());
+                    studentList.add(currentStudent); // 添加学生
+                    classScore.getScores().put(currentStudent, new CourseScore()); // 添加学生成绩
 
-                    studentScores.put(students.get(student),studentScore); // 添加学生成绩
+
+                    if (studentScores.containsKey(currentStudent)) { // 判断学生是否已经存在
+                        studentScores.get(currentStudent).put(COURSES[courseIndex], new CourseScore()); // 添加学生成绩
+                    } else {
+                        HashMap<Course, CourseScore> newScore = new HashMap<>();
+                        newScore.put(COURSES[courseIndex], new CourseScore());
+                        studentScores.put(currentStudent, newScore);
+                    }
                 }
                 String semester = SEMESTERS[random.nextInt(SEMESTERS.length)]; // 随机选择一个学年学期
-                TeachingClass tc = new TeachingClass(courseID, COURSES[courseIndex], COURSES[courseIndex].getTeachers().get(j), studentList, semester, cs);
+                TeachingClass tc = new TeachingClass(courseID, COURSES[courseIndex], COURSES[courseIndex].getTeachers().get(j), studentList, semester, classScore);
                 teachingClasses.add(tc); // 添加教学班
                 courseID++;
             }
@@ -82,31 +105,84 @@ public class TeachingClassManager {
 
         }
 
+        ensureStudentCourse(students); // 确保每个学生至少选择了三门课程
+
 //        for (TeachingClass teachingClass : teachingClasses) {
 //            System.out.println(teachingClass);
 //            System.out.println("====================================");
 //        }
     }
 
-    // 生成教学班学生成绩
-    public static void createClassScore(TeachingClass teachingClass,int choice) {
+    // 确保每个学生至少选择了三门课程
+    public static void ensureStudentCourse(ArrayList<Student> students) {
+        for (Student student : students) {
+            int courseCount = random.nextInt((courses.size() - 3)) + 3;
+
+            // 确保学生在 studentScores 中有对应的记录
+            if (!studentScores.containsKey(student)) {
+                studentScores.put(student, new HashMap<>());
+            }
+
+            while (studentScores.get(student).size() < courseCount) {
+
+                ArrayList<Course> availableCourses = new ArrayList<>();
+
+                for (Course course : courses) { // 遍历课程
+                    if (!studentScores.get(student).containsKey(course)) { // 如果学生选择了该课程则跳过
+                        availableCourses.add(course);
+                    }
+                }
+
+                int courseIndex = random.nextInt(availableCourses.size()); // 随机选择一门未选择的课程
+                Course currentCourse = availableCourses.get(courseIndex);
+
+                ArrayList<TeachingClass> availableClasses = new ArrayList<>();
+
+                for (TeachingClass teachingClass : teachingClasses) {
+                    if (teachingClass.getCourse().equals(currentCourse)) {
+                        availableClasses.add(teachingClass);
+                    }
+                }
+
+                int classIndex = random.nextInt(availableClasses.size()); // 随机选择未选择的课程的教学班
+                TeachingClass currentClass = availableClasses.get(classIndex);
+
+                currentClass.getStudents().add(student); // 添加学生
+                currentClass.getClassScore().getScores().put(student, new CourseScore()); // 添加学生成绩
+                studentScores.get(student).put(currentCourse, new CourseScore());
+
+            }
+        }
+    }
+
+    // 随机生成教学班学生成绩
+    public static void createClassScore(TeachingClass teachingClass, int choice) {
+        LocalDate now = LocalDate.now();
         for (Student student : teachingClass.getStudents()) {
             CourseScore courseScore = teachingClass.getClassScore().getScores().get(student);
-            switch(choice) {
+            switch (choice) {
                 case 1: {
                     courseScore.setRegularScore(random.nextInt(41) + 60); // 随机生成平时成绩
+                    courseScore.setRegularScoreDate(now); // 记录成绩获取的时间
+                    studentScores.get(student).get(teachingClass.getCourse()).setRegularScore(courseScore.getRegularScore());
                     break;
                 }
                 case 2: {
                     courseScore.setMidtermScore(random.nextInt(41) + 60); // 随机生成期中成绩
+                    courseScore.setMidtermScoreDate(now); // 记录成绩获取的时间
+                    studentScores.get(student).get(teachingClass.getCourse()).setMidtermScore(courseScore.getMidtermScore());
                     break;
                 }
                 case 3: {
                     courseScore.setExperimentScore(random.nextInt(41) + 60); // 随机生成实验成绩
+                    courseScore.setExperimentScoreDate(now); // 记录成绩获取的时间
+                    studentScores.get(student).get(teachingClass.getCourse()).setExperimentScore(courseScore.getExperimentScore());
                     break;
                 }
                 case 4: {
                     courseScore.setFinalScore(random.nextInt(41) + 60); // 随机生成期末成绩
+                    courseScore.setFinalScoreDate(now); // 记录成绩获取的时间
+                    studentScores.get(student).get(teachingClass.getCourse()).setFinalScore(courseScore.getFinalScore());
                     break;
                 }
                 default: {
@@ -114,17 +190,6 @@ public class TeachingClassManager {
                 }
             }
         }
-    }
-
-    // 为教学班单独添加学生
-    public static void addStudentForClass(TeachingClass teachingClass, ArrayList<Student> students) {
-        HashMap<Student, CourseScore> scores = new HashMap<>();
-        for (Student student : students) {
-            scores.put(student, new CourseScore());
-        }
-
-        teachingClass.getStudents().addAll(students);
-        teachingClass.getClassScore().getScores().putAll(scores);
     }
 
 }
