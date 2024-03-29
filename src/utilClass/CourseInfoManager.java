@@ -5,6 +5,7 @@ import mainClass.Teacher;
 
 import java.util.Scanner;
 
+import static utilClass.MainMenu.waitForUser;
 import static utilClass.SystemInfoManager.teachers;
 import static utilClass.Utils.COURSES;
 
@@ -31,7 +32,8 @@ public class CourseInfoManager {
         }
 
         System.out.println("未找到该课程，请检查输入是否正确。");
-
+        waitForUser();
+        showCourseTeacherList();
     }
 
     // 添加课程教师
@@ -54,12 +56,16 @@ public class CourseInfoManager {
                         course.getTeachers().add(teacher);
                         System.out.println(teacher);
                         System.out.println("添加成功！");
+                        waitForUser();
                         return;
                     }
                 }
-                System.out.println("未找到该教师，请检查输入是否正确。");
             }
         }
+
+        System.out.println("未找到该教师，请检查输入是否正确。");
+        waitForUser();
+        addCourseTeacher();
     }
 
     // 删除课程教师
@@ -82,12 +88,16 @@ public class CourseInfoManager {
                         course.getTeachers().remove(teacher);
                         System.out.println(teacher);
                         System.out.println("删除成功！");
+                        waitForUser();
                         return;
                     }
                 }
-                System.out.println("未找到该教师，请检查输入是否正确。");
             }
         }
+
+        System.out.println("未找到该教师，请检查输入是否正确。");
+        waitForUser();
+        deleteCourseTeacher(); // 递归调用以重新输入
     }
 
     // 查看课程分数占比
@@ -108,11 +118,14 @@ public class CourseInfoManager {
                 System.out.println("期中成绩：" + course.getMidtermScoreWeight() * 100 + "%");
                 System.out.println("实验成绩：" + course.getExperimentScoreWeight() * 100 + "%");
                 System.out.println("期末成绩：" + course.getFinalScoreWeight() * 100 + "%");
+                waitForUser();
                 return;
             }
         }
 
         System.out.println("未找到该课程，请检查输入是否正确。");
+        waitForUser();
+        showCourseScoreWeight(); // 递归调用以重新输入
     }
 
     // 修改课程分数占比
@@ -174,6 +187,8 @@ public class CourseInfoManager {
         }
 
         System.out.println("未找到该课程，请检查输入是否正确。");
+        waitForUser();
+        setCourseScoreWeight(); // 递归调用以重新输入
     }
 
 

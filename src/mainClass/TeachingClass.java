@@ -25,12 +25,11 @@ public class TeachingClass { // 教学班
     @Override
     public String toString() {
         return "TeachingClass{" +
-                "id=" + id +
-                ", course=" + course + "\n" +
-                ", teacher=" + teacher + "\n" +
-                ", students=" + students + "\n" +
-                ", semester='" + semester + '\'' +
-                ", classScore=" + classScore +
+                "教学班编号：" + id + "\t" +
+                ", 课程名称：" + course.getName() + "\t" +
+                ", 开课学期：" + semester + '\n' +
+                ", 任课教师：" + teacher +
+                ", 学生列表：" + students + "\n" +
                 '}';
     }
 

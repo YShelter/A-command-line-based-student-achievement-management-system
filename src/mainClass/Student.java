@@ -14,8 +14,8 @@ public class Student extends Person {
     @Override
     public String toString() {
         return  "Student{ " +
+                "学号： " + id + "\t, " +
                 super.toString() +
-                ", 学号： " + id +
                 " }\n";
     }
 

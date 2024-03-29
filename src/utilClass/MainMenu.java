@@ -1,6 +1,7 @@
 package utilClass;
 
 import mainClass.Course;
+import mainClass.TeachingClass;
 
 import java.util.Scanner;
 
@@ -8,14 +9,10 @@ import static utilClass.CourseInfoManager.*;
 import static utilClass.CreatePerson.createStudents;
 import static utilClass.CreatePerson.createTeachers;
 import static utilClass.PersonInfoManager.*;
-import static utilClass.TeachingClassManager.addTeacherForCourse;
-import static utilClass.TeachingClassManager.createRandomClass;
+import static utilClass.TeachingClassManager.*;
 import static utilClass.Utils.*;
 
 public class MainMenu extends SystemInfoManager {
-//    private static ArrayList<Student> students = new ArrayList<>(); // 记录所有学生信息
-//    private static ArrayList<Teacher> teachers = new ArrayList<>(); // 记录所有教师信息
-//    private static ArrayList<TeachingClass> teachingClasses = new ArrayList<>(); // 记录所有教学班信息
 
     // 显示主菜单
     public static void showMainMenu() {
@@ -81,9 +78,9 @@ public class MainMenu extends SystemInfoManager {
             System.out.println("1. 初始化学生数据");
             System.out.println("2. 初始化教师数据");
             System.out.println("3. 生成课程数据");
-            System.out.println("4. 初始化教学班数据");
-            System.out.println("5. 返回上级目录");
-            System.out.println("6. 退出系统");
+//            System.out.println("4. 初始化教学班数据");
+            System.out.println("4. 返回上级目录");
+            System.out.println("5. 退出系统");
             System.out.println("-------------------------------");
             System.out.println("请选择您要初始化的数据：");
 
@@ -238,11 +235,12 @@ public class MainMenu extends SystemInfoManager {
                     System.out.println("输入错误，请重新输入");
                     break;
             }
+            waitForUser();
             clearConsole();
         }
     }
 
-    // 显示学生信息管理菜单
+    // 显示教师信息管理菜单
     public static void showTeacherInfoManagerMenu() {
         while (true) {
             showTitle();
@@ -303,6 +301,7 @@ public class MainMenu extends SystemInfoManager {
                     System.out.println("输入错误，请重新输入");
                     break;
             }
+            waitForUser();
             clearConsole();
         }
     }
@@ -360,6 +359,74 @@ public class MainMenu extends SystemInfoManager {
                 System.out.println("输入错误，请重新输入");
                 break;
         }
+
+        waitForUser();
+        clearConsole();
+        showCourseInfoManagerMenu();
+    }
+
+    // 显示教学班信息管理
+    public static void showTeachingClassInfoManagerMenu() {
+        showTitle();
+
+        System.out.println("1. 查看所有教学班信息");
+        System.out.println("2. 查看教学班信息");
+//        System.out.println("3. 添加教学班学生");
+//        System.out.println("4. 删除教学班学生");
+        System.out.println("3. 生成教学班成绩");
+//        System.out.println("4. 查看教学班所有学生成绩");
+//        System.out.println("5. 查看教学班学生成绩");
+//        System.out.println("8. 修改教学班学生成绩");
+        System.out.println("4. 返回上级目录");
+        System.out.println("5. 退出系统");
+
+        System.out.println("-------------------------------");
+        System.out.println("请选择您要进行的操作：");
+
+        Scanner scanner = new Scanner(System.in);
+
+        int choice = scanner.nextInt();
+
+        switch (choice) {
+            case 1: {
+                System.out.println("教学班信息如下：");
+                for (TeachingClass teachingClass : teachingClasses) {
+                    System.out.println(teachingClass);
+                    System.out.println("====================================");
+                }
+                waitForUser();
+                break;
+            }
+            case 2: // 查看教学班信息
+                showTeachingClass();
+                break;
+            case 3: // 生成教学班成绩
+                createAllClassScore();
+                break;
+//            case 4: // 查看教学班所有学生成绩
+//                showTeachingClassScores();
+//                break;
+//            case 5: // 查看教学班学生成绩
+//                showStudentScoresInClass();
+//                break;
+            case 4: // 返回上级目录
+                return;
+            case 5: // 退出系统
+                exitSystem();
+                break;
+            default:
+                System.out.println("输入错误，请重新输入");
+                break;
+        }
+
+        waitForUser();
+        clearConsole();
+        showTeachingClassInfoManagerMenu();
+    }
+
+    // 显示成绩信息管理
+    public static void showScoreInfoManagerMenu() {
+
     }
 
     // 显示系统名称

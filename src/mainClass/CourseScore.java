@@ -24,7 +24,7 @@ public class CourseScore { // 课程成绩
         this.finalScore = finalScore;
     }
 
-    public void calculateTotalScore(int regularScoreWeight, int midtermScoreWeight, int experimentScoreWeight, int finalScoreWeight) { // 计算总成绩
+    public void calculateTotalScore(double regularScoreWeight, double midtermScoreWeight, double experimentScoreWeight, double  finalScoreWeight) { // 计算总成绩
         totalScore = (int) (regularScore * regularScoreWeight + midtermScore * midtermScoreWeight +
                             experimentScore * experimentScoreWeight + finalScore * finalScoreWeight);
     }
